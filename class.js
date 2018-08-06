@@ -10,8 +10,8 @@ JS.Class = function(classDefinition) {
         return function() {
             //它在里面执行用户传入的构造器construct
             //preventJSBaseConstructorCall是为了防止在createClassDefinition辅助方法中执行父类的construct
-            if (typeof this['construct'] === 'function' && preventJSBaseConstructorCall === false) {
-                this.construct.apply(this, arguments);
+            if (typeof this['constructor'] === 'function' && preventJSBaseConstructorCall === false) {
+                this.constructor.apply(this, arguments);
             }
         };
     }
