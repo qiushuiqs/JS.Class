@@ -10,9 +10,9 @@
         </style>
         <script src="class.js"></script>
         <script>
-
+            
             var Animal = JS.Class({
-                constructor: function(name) {
+                construct: function(name) {
                     this.name = name;
                 },
                 shout: function(s) {
@@ -24,9 +24,10 @@
             animal.shout('animal'); // animal
 
             var Dog = Animal.extend({
-                constructor: function(name, age) {
+                construct: function(name, age) {
                     //调用父类构造器
-                    this.parent.constructor.apply(this, arguments);
+                    // this.parent.constructor.apply(this, arguments);
+                    this._super.apply(this, arguments);
                     this.age = age;
                 },
                 run: function(s) {
@@ -37,13 +38,15 @@
             console.log(dog.name);
             dog.shout("dog"); // dog
             dog.run("run"); // run
-            console.log(dog.constructor + "")
+            console.log(dog.construct + "")
             var Shepherd = Dog.extend({
                 statics: {//静态成员
                     TYPE: "Shepherd"
                 },
                 run: function() {//方法链,调用超类同名方法
-                    this.parent.run.call(this, "fast");
+                    this._super.call(this, "fast");
+
+                    // this.parent.run.call(this, "fast");
                 }
             });
             console.log(Shepherd.TYPE);//Shepherd
@@ -56,8 +59,27 @@
             var extra = new Extra('extra11', 4);
             extra.run();
             extra.shout('Extra');
-				</script>
+		</script>
 
+
+        <script src="simpleInheritance.js"></script>
+        <script>
+            var Person = Class.extend({
+                init: function(isDancing){
+                    this.dancing = isDancing;
+                }
+            }); 
+            var p = new Person(true);
+            console.log(p.dancing); // => true
+
+            var Ninja = Person.extend({
+                init: function(){
+                    this._super( false );
+                }
+            });
+            var n = new Ninja();
+            console.log(n.dancing); // => false   
+        </script>
     </head>
 
     <body>
